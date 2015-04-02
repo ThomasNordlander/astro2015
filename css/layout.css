@@ -1,0 +1,393 @@
+/*
+=====================================================================
+*   adapted from Woo v1.0 Layout Stylesheet for astronomdagarna 2015
+*   url: styleshout.com
+*   05-02-2014
+*   last revised 2014-12-10
+=====================================================================
+
+	TOC:
+1	iframes
+2	General and Common Styles
+3	header Styles
+4	hero 
+5	home 
+6	about 
+7	venue
+8	registration
+9	schedule
+10	contribution
+11	accommodation
+12	participants
+13	organizers		
+14	footer
+
+===================================================================== */
+
+/* 1	Making iframes "responsive" */
+
+iframe{
+	width: 70vw !important;
+	height: 60vh !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* 2	General and Common Styles
+/* ------------------------------------------------------------------ */
+
+.section-head {
+	padding: 0 4%;
+	text-align: center;
+}
+.section-head h1 {
+	font: 50px/50px 'bebas_neue', sans-serif;
+	color: #DF9D45;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	margin-bottom: 30px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 3	 Header Styles
+/* ------------------------------------------------------------------ */
+
+header {
+	height: 54px;
+	width: 100%;
+	background: #13171B;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 990;
+}
+
+/* header social */
+header .header-social {
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 54px;
+	color: #424a56;
+	margin: 0 10px 0 0;
+	padding: 0;
+	float: right;
+}
+header .header-social li {
+	display: inline-block;
+	margin-right: 20px;
+}
+header .header-social li a { color: #bb3e3e; }
+header .header-social li a:hover { color: #fff270; }
+
+/* primary navigation
+--------------------------------------------------------------------- */
+#nav-wrap, #nav-wrap ul, #nav-wrap li, #nav-wrap a {
+	 margin: 0;
+	 padding: 0;
+	 border: none;
+	 outline: none;
+}
+
+/* nav-wrap */
+#nav-wrap {
+	font: 14px  'robotomedium', sans-serif;
+	font-weight: normal;
+	letter-spacing: 1px;
+	float: left;
+	padding: 0 1%;
+   text-transform: uppercase;
+}
+
+/* hide toggle button */
+#nav-wrap > a { display: none; }
+
+ul#nav {
+	min-height: 54px;
+	width: auto;
+
+	/* left align the menu */
+	text-align: left;
+}
+
+ul#nav li {
+	position: relative;
+	list-style: none;
+	height: 54px;
+	display: inline-block;
+}
+
+/* Links */
+ul#nav li a {
+
+	/* 8px padding top + 8px padding bottom + 38px line-height = 54px */
+	display: inline-block;
+	padding: 8px 8px;
+	line-height: 38px;
+	text-decoration: none;
+	text-align: left;
+	color: #aaa;
+
+	-webkit-transition: color .2s ease-in-out;
+	-moz-transition: color .2s ease-in-out;
+	-o-transition: color .2s ease-in-out;
+	-ms-transition: color .2s ease-in-out;
+	transition: color .2s ease-in-out;
+}
+
+ul#nav li a:hover { color: #fff; }
+ul#nav li a:active { background-color: transparent !important; }
+ul#nav li.current a { color: #bb3e3e; }
+
+/* ------------------------------------------------------------------ */
+/* 4	Hero Section
+/* ------------------------------------------------------------------ */
+
+#hero {
+	padding-top: 66px;
+	background: #20293F;
+	overflow: hidden;
+}
+
+#hero .row { max-width: 1040px; }
+
+/* Hero Text */
+.hero-text {
+	color: #fff;
+	width: 83%;
+	text-align: center;
+	margin: 54px auto 24px auto;
+}
+
+.hero-text h1 {
+	font-family: 'bebas_neue', sans-serif; 
+	color: #fff;
+	padding: 0;
+	margin: 0;
+	letter-spacing:2px;
+}
+
+.hero-text h1 span,
+.hero-text a { color: #ccc; }
+.hero-text p {
+	font: 38px/50px 'bebas_neue', sans-serif;
+	padding: 0;
+	margin: 12px 8% 0;
+	color: #fff
+}
+
+/* ------------------------------------------------------------------ */
+/* 5	home
+/* ------------------------------------------------------------------ */
+
+#home {
+	background: #fff;
+	padding-top: 115px;
+	padding-bottom: 115px;
+	overflow: hidden;
+}
+/* ------------------------------------------------------------------ */
+/* 6	about
+/* ------------------------------------------------------------------ */
+#about {
+	background: #fafafa;
+	padding-top: 115px;
+	padding-bottom: 115px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 7	venue
+/* ------------------------------------------------------------------ */
+
+#venue {
+	background: #fff;
+	padding-top: 115px;
+	padding-bottom: 115px;
+	overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/* 8    registration
+/* ------------------------------------------------------------------ */
+#registration {
+        background: #fafafa;
+        padding-top: 115px;
+        padding-bottom: 115px;
+        overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/* 9	schedule
+/* ------------------------------------------------------------------ */
+
+#schedule {
+	background: #fff;
+	padding-top: 115px;
+	padding-bottom: 115px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 10	contributions
+/* ------------------------------------------------------------------ */
+
+#contributions {
+	background: #fafafa;
+	padding-top: 115px;
+	padding-bottom: 115px;
+}
+
+/* ------------------------------------------------------------------ */
+/* 11	accommodations
+/* ------------------------------------------------------------------ */
+
+#accommodation {
+	background: #fff;
+	padding-top: 115px;
+	padding-bottom: 115px;
+	overflow: hidden;
+}
+/* ------------------------------------------------------------------ */
+/* 12	participants
+/* ------------------------------------------------------------------ */
+
+#participants {
+	background: #fafafa;
+	padding-top: 115px;
+	padding-bottom: 115px;
+	overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/* 13	organizers
+/* ------------------------------------------------------------------ */
+
+#organizers {
+	background: #fff;
+	padding-top: 115px;
+	padding-bottom: 115px;
+	overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer
+/* ------------------------------------------------------------------ */
+
+footer {
+	padding-top: 84px;	
+	margin-bottom: 0px;
+	background:#111;
+	color: #ddd;
+	font-size: 14px;
+	line-height: 24px;
+	position: relative;
+}
+
+footer a, footer a:visited { color: #bb3e3e; }
+footer a:hover, footer a:focus { color: #fff; }
+
+footer .info { padding-right: 90px; }
+
+footer .footer-logo a {
+	display: block;
+	margin-bottom: 12px;
+	margin-top: 12px;
+	margin-left: 3px;
+}
+footer .footer-logo a img {
+	height: 24px;
+	width: 92px;
+}
+
+footer .right-cols .columns {
+	padding-right: 5px;
+	padding-left: 5px;
+	width: 33.33333%; ;
+}
+footer .right-cols .columns p { margin-bottom: 6px; }
+
+footer h3 {
+	font: 13px/24px 'robotomedium', sans-serif;
+	margin-bottom: 0;
+	font-weight: normal;
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+footer h3:before {
+	font-family: 'FontAwesome';   
+	margin: 0 0 6px 3px;
+	font-size: 30px;
+	line-height: 48px;
+	text-align: left;
+	color: #738291;
+	display: block;
+}
+footer h3.address:before { content: "\f041"; }
+footer h3.social:before { content: "\f0c0"; }
+footer h3.contact:before { content: "\f0e0"; }
+
+footer ul {
+	margin: 0;
+	padding: 0;
+}
+footer ul li {
+	margin: 0;
+	line-height: 24px;
+}
+footer ul li a,
+footer ul li a:visited { color: #bb3e3e; }
+footer ul li a:hover,
+footer ul li a:focus { color: #fff; }
+
+/* copyright */
+footer .copyright {
+	margin: 0;
+	padding: 0 18px;
+	clear: both;
+}
+
+/* Go To Top Button */
+#go-top {
+	position: absolute;
+	top: -24px;
+	left: 50%;
+	margin-left: -30px;
+	text-align: center;
+	z-index: 889;
+}
+#go-top a {
+	text-decoration: none;
+	border: 0 none;
+	display: block;
+	width: 60px;
+	height: 60px;
+	background: #525252;
+
+	-webkit-transition: all 0.2s ease-in-out;
+   	-moz-transition: all 0.2s ease-in-out;
+   	-o-transition: all 0.2s ease-in-out;
+   	-ms-transition: all 0.2s ease-in-out;
+   	transition: all 0.2s ease-in-out;
+
+   	color: #fff;
+   	font-size: 21px;
+   	line-height: 60px;
+ 	border-radius: 100%;
+}
+#go-top a:hover { background: #0F9095; }
+
+#top {
+	padding-top: 66px;
+	padding-bottom: 30px;
+	background: #0B486B;
+	overflow: hidden;
+}
+
+.top-text h1 {
+	font: 40px/1.2em  'robotomedium', sans-serif;
+	color: #fff;
+	padding: 0;
+	margin: 0;
+	letter-spacing:2px;
+}
+
+
+
