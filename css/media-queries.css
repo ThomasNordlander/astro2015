@@ -12,8 +12,9 @@
 
    /* Hero Section
    ------------------------------------------------------------------ */
-   .hero-text { width: 82%; }
+   .hero-text { width: 83%; }
    .section-head h1 { font-size:38px; }
+   h2 { font-size: 30px;}
 
    #nav-wrap {
       font-size: 12px;
@@ -105,6 +106,7 @@
 
 /* General and Common Styles */
 	.section-head h1 { font-size:24px; }
+	h2 {font-size: 20px;}
 
    /* Header Styles
    ------------------------------------------------------------------ */
