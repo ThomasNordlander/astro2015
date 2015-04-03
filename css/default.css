@@ -69,15 +69,13 @@ d. Default Styles
    box-sizing: border-box;
 }
 
-html { font-size: 62.5%; }
-
 body {
    background: #fff;
    font-family: 'Roboto', sans-serif;
    font-weight: 400;
-   font-size: 16px;
-   line-height: 30px;
-	color: #444;
+   font-size: 18px;
+   line-height: 34px;
+	color: #666;
    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
 	-webkit-text-size-adjust: 100%;
 }
@@ -92,7 +90,7 @@ caption, h1, h2, h3, h4, h5, h6 {
    font-weight: 300;
 }
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
-h1 { font-size: 60px; line-height: 42px; margin-bottom: 16px; letter-spacing: -1px; }
+h1 { font-size: 60px; line-height: 42px; margin-bottom: 16px; }
 h2 { font-size: 28px; line-height: 36px; margin-bottom: 6px; }
 h3 { font-size: 22px; line-height: 30px; margin-bottom: 12px; }
 h4 { font-size: 20px; line-height: 30px; margin-bottom: 6px; }
@@ -106,8 +104,8 @@ p img { margin: 0; }
 
 /* for 'em' and 'strong' tags, font-size and line-height should be same with
 the body tag due to rendering problems in some browsers */
-em { font: 15px/30px 'Roboto', sans-serif; font-style:italic;}
-strong, b { font-family: 'Roboto', sans-serif; font-weight:500; }
+em { font-style:italic;}
+strong, b { font-weight:500; }
 small { font-size: 11px; line-height: inherit; }
 
 
@@ -144,41 +142,14 @@ object {
 /* default
 --------------------------------------------------------------- */
 .row {
-   width: 96%;
+   width: 92%;
    max-width: 1008px;
-   margin: 0 auto;
+   margin:  auto;
 }
 /* fixed width for IE8 */
 .ie .row { width: 1000px ; }
 
 
-.row .row { width: auto; max-width: none; margin: 0 -18px; }
-
-/* row clearing */
-.row:before,
-.row:after {
-    content: " ";
-    display: table;
-}
-.row:after {
-    clear: both;
-}
-
-.column, .columns {
-   position: relative;
-   padding: 0 0px;
-   min-height: 1px;
-   float: left;
-}
-
-
-/* removed gutters */
-.row.collapsed > .column,
-.row.collapsed > .columns,
-.column.collapsed, .columns.collapsed  { padding: 0; }
-
-[class*="column"] + [class*="column"]:last-child { float: right; }
-[class*="column"] + [class*="column"].end { float: right; }
 
 /* column widths */
 

@@ -1,6 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,500,300);
-
-/*
+@import url(http://fonts.googleapis.com/css?family=Raleway:300);/*
 =====================================================================
 *   adapted from Woo v1.0 Layout Stylesheet for astronomdagarna 2015
 *   url: styleshout.com
@@ -36,19 +35,17 @@ iframe{
 
 
 .section-head {
-	padding: 0 4%;
 	text-align: center;
 }
 .section-head h1 {
-	font-family:'Roboto', sans-serif;
+	font-family:'Raleway', sans-serif;
 	line-height: 60px;
+	font-style: 300;
 	color: #555;
-	font-weight:300;
-	text-transform: uppercase;
-	letter-spacing: 1.5px;
+	font-weight:400;
+	letter-spacing: normal;
 	margin-bottom: 30px;
 }
-
 
 
 header {
@@ -75,8 +72,8 @@ header .header-social li {
 	display: inline-block;
 	margin-right: 20px;
 }
-header .header-social li a { color: #bb3e3e; }
-header .header-social li a:hover { color: #fff270; }
+header .header-social li a { color: #F5B349; }
+header .header-social li a:hover { color: #fff; }
 
 /* primary navigation
 --------------------------------------------------------------------- */
@@ -135,7 +132,7 @@ ul#nav li a {
 
 ul#nav li a:hover { color: #fff; }
 ul#nav li a:active { background-color: transparent !important; }
-ul#nav li.current a { color: #bb3e3e; }
+ul#nav li.current a { color: #F5B349; }
 
 #hero {
 	padding-top: 66px;
@@ -167,33 +164,36 @@ ul#nav li.current a { color: #bb3e3e; }
 
 #home {
 	background: #fff;
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 50px;
+	padding-bottom: 25px;
 	overflow: hidden;
 }
 
 #about {
-	background: #ddd;
+	background: #fafafa;
 	padding-top: 70px;
-	padding-bottom: 70px;
-	color: #555;
+	padding-bottom: 45px;
+	color: #666;
 
 }
 #about .section-head h1 {
         color: #555;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        text-align: left;
 }
 
 #venue {
 	background: #fff;
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 15px;
+	padding-bottom: 45px;
 	overflow: hidden;
 }
 
 #registration {
         background: #F5B349;
-        padding-top: 70px;
-        padding-bottom: 70px;
+        padding-top: 15px;
+        padding-bottom: 45px;
         overflow: hidden;
 }
 
@@ -204,37 +204,37 @@ ul#nav li.current a { color: #bb3e3e; }
 
 #schedule {
 	background: #fff;
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 15px;
+	padding-bottom: 45px;
 }
 
 
 #contributions {
 	background: #fafafa;
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 15px;
+	padding-bottom: 45px;
 }
 
 
 #accommodation {
 	background: #fff;
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 15px;
+	padding-bottom: 45px;
 	overflow: hidden;
 }
 
 #participants {
 	background: #fafafa;
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 15px;
+	padding-bottom: 45px;
 	overflow: hidden;
 }
 
 
 #organizers {
 	background: #fff;
-	padding-top: 70px;
-	padding-bottom: 70px;
+	padding-top: 15px;
+	padding-bottom: 45px;
 	overflow: hidden;
 }
 
@@ -249,7 +249,7 @@ footer {
 	position: relative;
 }
 
-footer a, footer a:visited { color: #bb3e3e; }
+footer a, footer a:visited { color: #F5B349; }
 footer a:hover, footer a:focus { color: #fff; }
 
 footer h3 {
