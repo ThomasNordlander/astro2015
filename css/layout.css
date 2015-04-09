@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,500,300);
-@import url(http://fonts.googleapis.com/css?family=Raleway:300);/*
-=====================================================================
+@import url(http://fonts.googleapis.com/css?family=Lato:300);
+/*=====================================================================
 *   adapted from Woo v1.0 Layout Stylesheet for astronomdagarna 2015
 *   url: styleshout.com
 *   05-02-2014
@@ -38,7 +38,7 @@ iframe{
 	text-align: center;
 }
 .section-head h1 {
-	font-family:'Raleway', sans-serif;
+	font-family:'Lato', sans-serif;
 	line-height: 60px;
 	font-style: 300;
 	color: #555;
@@ -170,7 +170,7 @@ ul#nav li.current a { color: #F5B349; }
 }
 
 #about {
-	background: #fafafa;
+	background: #fffcf8;
 	padding-top: 70px;
 	padding-bottom: 45px;
 	color: #666;
