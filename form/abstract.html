@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
+        <title>CS 19 | Abstract Submission</title>
+        <link rel="stylesheet" href="../css/form.css">
+        <script type="text/javascript" src="../js/abstract.js"></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath: [["$","$"], ["\\(","\\)"]]
+                }
+            });
+        </script>
+        <script type="text/javascript" src="../../MathJax/MathJax.js?config=TeX-AMS_HTML-full"></script>
+    </head>
+    
+    <body>
+    
+        <div id="hero-div">
+	        <h2 align="right">
+	            <a href="http://www.astro.uu.se/astro2015/">back to homepage <i class="fa fa-arrow-circle-left "></i></a>
+            </h2>
+        </div>
+        
+        <div id="form-div">
+            <!-- <form name="regForm" onsubmit="return validateForm()"> -->
+            <form name="abstractSubmission">
+                <br/><br/>
+                
+                <label for="AbstractType">Abstract Type: &nbsp;</label>
+                <input type="radio" name="AbstractType" value="Talk" onclick="abstractToggle(name)"/><label>&nbsp;Contributed talk&nbsp;&nbsp;</label>
+                <input type="radio" name="AbstractType" value="Poster" onclick="abstractToggle(name)"/><label>&nbsp;Contributed poster</label>
+                <br/><br/>
+                
+                <label for="title">Title</label>
+                <br/>
+                <input class="reg-input" id="title" name="title" type="text" maxlength="100" size="70" />
+                <br/><br/>
+                
+                <label for="firstauthor">First author</label>
+                <br/>
+                <input class="reg-input" id="firstauthor" name="firstauthor" type="text" maxlength="70" size="70" />
+                <br/><br/>
+                
+                <label for="coauthors">Co-authors <span style="font-size: 12pt">(comma separated)</span></label>
+                <textarea id="coauthors" rows="1" cols="70" name="coauthors" value=""></textarea>
+                <br/><br/>
+                
+                <label for="abstract">Abstract <span style="font-size: 12pt">(max. 1650 chars.)</span></label>
+                <textarea id="abstract" rows="20" cols="70" name="abstract" value="" maxlength = "1650"></textarea>
+                
+                <input type="submit" class="button" id="submit" value="Submit" style="float: right; margin-top: 3px;" />
+            </form>
+            <button class="button" onclick="abstractPreview()" style="margin-top: 5px;">Preview</button> 
+            <button class="button" onclick="abstractReset()" style="margin-top: 5px;">Reset</button>
+            <div class="warning" id="warning">You must fill out all fields before submitting.</div>
+            
+            <br/><br/><br/>
+            <h2>Abstract Preview</h2>
+            <div id="preview">
+                <h3 id="titlePreview"></h3>
+                <div id="authorPreview"></div><div id="coauthorPreview"></div>
+                <br/>
+                <p id="abstractPreview"></p>
+            </div>
+            <br/>
+            
+        </div> 
+        <script type="text/javascript">
+            document.getElementById("submit").disabled = true;
+        </script>
+        
+    </body>
+    
+</html>

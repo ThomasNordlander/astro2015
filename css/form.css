@@ -52,7 +52,7 @@ h2 a:hover {
 }
 
 #hero-div {
-	background-color: #f5B349;
+	background-color: #f5b349;
     opacity: 0.9;
 	padding-left:35px;
 	padding-right:35px;
@@ -120,7 +120,7 @@ h2 a:hover {
 .reg-input:focus{
 	background: #eee;
 	box-shadow: 0;
-	border: 3px solid #fff270;
+	border: 3px solid #f5b349;
 	color: #000;
 	outline: none;
     /*padding: 8px 8px 8px 8px;  -- this was causing a resizing of input boxes on focus */ 
@@ -185,7 +185,7 @@ input[type=radio]:not(old) + label {
 	text-transform:uppercase;
 }
 .button:hover{
-	background-color: #bb3e3e;
+	background-color: #f5b349;
 	color: #ffffff;
 }
 .button:disabled{
