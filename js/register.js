@@ -78,6 +78,7 @@ function validateField(input) {
     var re = /[A-Za-z -']/;
     var entry = document.getElementById(input);
     var field = document.getElementById(input + 'Error');
+//    if (input != 'MiddleName' && (entry.value == null || entry.value == "")) {
     if (entry.value == null || entry.value == "") {
         // flag as a required field
         field.innerHTML = "";
@@ -86,7 +87,7 @@ function validateField(input) {
         field.style.color = '#c8201e';
         entry.style.border = "3px solid #c8201e";
         return false;
-    } else if (!re.test(entry.value)) {
+    } else if (!re.test(entry.value)) { // should allow empty string for the MiddleName field
     	// flag as invalid characters
     	field.innerHTML = "";
     	field.className = "fa fa-times";
@@ -172,6 +173,38 @@ function confirmEmail(input){
         field.style.fontSize = "27px";
         field.style.color = "#4CBB17";
         email2.style.border = "3px solid rgba(0,0,0,0)";
+        return true;
+    }
+}
+
+function botTest(input) {
+    var re = /up+sala/i; // Match any (reasonable) spelling
+    var entry = document.getElementById(input);
+    var field = document.getElementById(input + 'Error');
+//    if (input != 'MiddleName' && (entry.value == null || entry.value == "")) {
+    if (entry.value == null || entry.value == "") {
+        // flag as a required field
+        field.innerHTML = "";
+        field.className = "fa fa-times";
+        field.style.fontSize = "27px";
+        field.style.color = '#c8201e';
+        entry.style.border = "3px solid #c8201e";
+        return false;
+    } else if (!re.test(entry.value)) {
+    	// flag as invalid characters
+    	field.innerHTML = "";
+    	field.className = "fa fa-times";
+    	field.style.fontSize = "27px";
+    	field.style.color = '#c8201e';
+    	entry.style.border = "3px solid #c8201e";
+    	return false;
+    } else {
+        // mark as valid
+        field.innerHTML = "";
+        field.className = "fa fa-check";
+        field.style.fontSize = "27px";
+        field.style.color = "#4CBB17";
+        entry.style.border = "3px solid rgba(0,0,0,0)";
         return true;
     }
 }
