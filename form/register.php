@@ -198,11 +198,27 @@ $lunch = get("FridayLunch"); if (!in_array($lunch,   array("Attending", "Not Att
 // If user submitted data, execute validation, save them to file and email a copy to SOC, and display victory message
 
 if (finished() && $valid) { // user clicked "submit", and all data are valid!
+	clearstatcache();
 	// Attempt to store data:
 	date_default_timezone_set('Europe/Stockholm'); $time = date("r");
-	$filename = date("U").'_'.preg_replace("/[^a-zA-ZåäöÅÄÖ \.]/g", "", str_replace(" ", "_", $name.'_'.$surname));
-// 	$ok = file_put_contents(".registration/".$filename, $title."\n".$name."\n".$surname."\n".$affil."\n".$email."\n".$diet."\n".$banquet."\n".$lunch."\n".$diet_details);
-// 	if (!$ok) echo "couldn't save file '.$filename";
+	$filename = $name.'_'.$surname;
+	$filename = str_replace(" ", "_", $filename);
+	
+	$filename = iconv("utf-8","ascii//TRANSLIT", $filename);
+ 	$filename = preg_replace("/[^a-zA-Z_\.]/", "", $filename);
+	$filename = "../.registration/".date("U").'_'.$filename.'.txt';
+	//
+	$ok = file_put_contents($filename, $title."\n".$name."\n".$surname."\n".$affil."\n".$email."\n".$diet."\n".$banquet."\n".$lunch."\n".$diet_details);
+	if (!$ok) { 
+		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
+		die("</div></body></html>");
+	}
+// 	echo substr(sprintf('%o', fileperms($filename)),-4)."\n";
+// 	var_dump(file_get_contents($filename)); echo "\n";
+// // 	var_dump(stat($filename)); echo "\n";
+// 	var_dump(is_writable($filename)); echo "\n";
+// 	var_dump(is_writable(dirname($filename))); echo "\n";
+// 	echo "</pre>";
 ?>
 	<h2> You are now registered! </h2>
 	<p class="reg-input">We have registered the following information. If anything appears wrong or unclear, please send an email to [FIXME]</p>
