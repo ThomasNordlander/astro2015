@@ -1,11 +1,15 @@
 <!doctype html>
 <?php
+/* Configuration: */
+$baseurl = 'http://www.astro.uu.se/~tnord/.astro2015';
+
+
 function submitted() { // did the user actually submit data?
-	return !empty($_GET);
+	return !empty($_POST);
 }
 function finished() {
 	$field = "Submit";
-	return !empty($_GET) && array_key_exists($field, $_GET) && $_GET[$field] == "Submit";
+	return !empty($_POST) && array_key_exists($field, $_POST) && $_POST[$field] == "Submit";
 }
 
 $okfields = array(); // store results of validation
@@ -16,16 +20,15 @@ function filterField($field, $canbeempty=false, $maxlen=1024, $linebreaksok=true
 	global $okfields;
 	$value = "";
 	# Check if $_POST is set, and whether $field is present:
-	# FIXME: replace $_GET with $_POST
-	if (empty($_GET)) return $okfields[$field] = $canbeempty;
-	if (!array_key_exists($field, $_GET)) return $okfields[$field] = $canbeempty;
+	if (empty($_POST)) return $okfields[$field] = $canbeempty;
+	if (!array_key_exists($field, $_POST)) return $okfields[$field] = $canbeempty;
 	
-	$value = trim($_GET[$field]);
+	$value = trim($_POST[$field]);
 	if (!$linebreaksok) $value = str_replace(array("\r", "\n"), "", $value);
 	$value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
 	$value = substr($value, 0, $maxlen);
 	
-	$_GET[$field] = $value; // store filtered input value
+	$_POST[$field] = $value; // store filtered input value
 	
 	// A string was either provided, or is not required:
 	return $okfields[$field] = strlen($value) > 0 || $canbeempty;
@@ -35,8 +38,8 @@ function filterField($field, $canbeempty=false, $maxlen=1024, $linebreaksok=true
 function radio($field, $possibilities, $val, $silent=false) {
 	# Check if the value of $field matches $val.
 	# If missing, No is selected by default
-	if (empty($_GET) || !array_key_exists($field, $_GET)) return radio_selected($val == $possibilities[0], $silent);
-	$value = $_GET[$field];
+	if (empty($_POST) || !array_key_exists($field, $_POST)) return radio_selected($val == $possibilities[0], $silent);
+	$value = $_POST[$field];
 	// Check if user submitted value is even allowed:
 	if (!in_array($value, $possibilities)) return radio_selected($val == $possibilities[0], $silent);
 	// Check if the user submitted value matches that of current field:
@@ -52,8 +55,8 @@ function radio_selected($sel, $silent=false) {
 function option($field, $possibilities, $val, $silent=false) {
 	# Check if the value of $field matches $val.
 	# If missing, No is selected by default
-	if (empty($_GET) || !array_key_exists($field, $_GET)) return option_selected($val == $possibilities[0], $silent);
-	$value = $_GET[$field];
+	if (empty($_POST) || !array_key_exists($field, $_POST)) return option_selected($val == $possibilities[0], $silent);
+	$value = $_POST[$field];
 	// Check if user submitted value is even allowed:
 	if (!in_array($value, $possibilities)) return option_selected($val == $possibilities[0], $silent);
 	// Check if the user submitted value matches that of current field:
@@ -145,12 +148,12 @@ function validateform(&$message) {
 
 // Extract input data:
 function get($field) {
-	if (empty($_GET) || !array_key_exists($field, $_GET)) return "";
-	return $_GET[$field];
+	if (empty($_POST) || !array_key_exists($field, $_POST)) return "";
+	return $_POST[$field];
 }
 
 // Execute validation on input data:
-$submitted = !empty($_GET);
+$submitted = !empty($_POST);
 $valid = validateform();
 $name = get('FirstName');
 $surname = get('Surname');
@@ -206,19 +209,53 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 	
 	$filename = iconv("utf-8","ascii//TRANSLIT", $filename);
  	$filename = preg_replace("/[^a-zA-Z_\.]/", "", $filename);
-	$filename = "../.registration/".date("U").'_'.$filename.'.txt';
-	//
-	$ok = file_put_contents($filename, $title."\n".$name."\n".$surname."\n".$affil."\n".$email."\n".$diet."\n".$banquet."\n".$lunch."\n".$diet_details);
-	if (!$ok) { 
+	$filename = "../.registration/".date("U").'_'.$filename;
+	$fname = basename($filename); // trim directory information
+	$url = $baseurl."/.registration/".$fname; // complete url, save for file extension
+	// construct text string to store:
+	$text = $title."\n".$name."\n".$surname."\n".$affil."\n".$email."\n".$diet."\n".$banquet."\n".$lunch."\n".$diet_details;
+	if (!file_put_contents($filename.'.txt', $text)) { 
 		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
 		die("</div></body></html>");
 	}
-// 	echo substr(sprintf('%o', fileperms($filename)),-4)."\n";
-// 	var_dump(file_get_contents($filename)); echo "\n";
-// // 	var_dump(stat($filename)); echo "\n";
-// 	var_dump(is_writable($filename)); echo "\n";
-// 	var_dump(is_writable(dirname($filename))); echo "\n";
-// 	echo "</pre>";
+	// Another one, including field names for greping:
+	$text = 'Title: '.$title."\nName: ".$name."\nSurname: ".$surname."\nAffiliation: ".$affil."\nEmail: " .
+		$email."\nDiet: ".$diet."\nBanquet: ".$banquet."\nLunch: ".$lunch."\nDiet details: ".$diet_details;
+	if (!file_put_contents($filename.'.dat', $text)) { 
+		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
+		die("</div></body></html>");
+	}
+	// Also construct HTML representation:
+	$text = "<table><tr><th>Field</th><th>Input</th></tr>\n" . 
+			"<tr><td>Name</td><td>".$name." ".$surname."</td></tr>\n" . 
+			"<tr><td>Affiliation</td><td>".$affil."</td></tr>\n" . 
+			"<tr><td>Email</td><td>".$email."</td></tr>\n" . 
+			"<tr><td>Diet:</td><td>".$diet. ($diet == 'Yes' ? ': '.$diet_details : '')."</td></tr>\n" . 
+			"<tr><td>Banquet:</td><td>".$banquet."</td></tr>\n" . 
+			"<tr><td>Friday lunch:</td><td>".$lunch."</td></tr>\n" .
+			"</table>";
+	if (!file_put_contents($filename.'.html', $text)) { 
+		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
+		die("</div></body></html>");
+	}
+	// Email
+	$text = "<h1>New user registration</h1>\n".
+			$text."\n" .
+			"<p>User data are stored here, for reference: ".
+				"<a href='".$url.".txt'>text form</a>, ".
+				"<a href='".$url.".dat'>with field names</a>, ".
+				"<a href='".$url.".html'>html version</a>.</p>\n";
+	$headers = "From: Astro2015 \n"; 
+	$headers .= 'MIME-Version: 1.0' . "\n"; 
+	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; 
+	$to = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
+	$subject = "Astro15: new registration";
+	if (!mail($to, $subject, $text, $headers)) { 
+		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
+		die("</div></body></html>");
+	}
+	
+	
 ?>
 	<h2> You are now registered! </h2>
 	<p class="reg-input">We have registered the following information. If anything appears wrong or unclear, please send an email to [FIXME]</p>
@@ -325,23 +362,13 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 if (submitted()) {
 	if (validateform($message)) {
 		echo '            <input type="submit" class="button" id="submit" name="Submit" value="Submit" style="float: right; margin-top: 3px;" />'."\n";
-// 		echo '<pre id="errormsg" style="visibility: hidden;"></pre>';
 	} else {
 		echo "            <pre id='errormsg' class='reg-input' style='clear: both; margin-top: 3em; border: 3px solid rgb(200, 32, 30);'>$message</pre>";
 	} 
-// } else {
-// 	echo '<pre id="errormsg" style="visibility: hidden;"></pre>';
 }
 ?>
         </form>
       </div>
-
-      
-<?php
-// echo "<pre>"; ob_start(); 
-// 	echo "GET: "; var_dump($_GET); echo ""; echo "POST: "; var_dump($_POST); echo "okfields: "; var_dump($okfields); 
-// 	$str = ob_get_contents(); ob_end_clean(); echo htmlspecialchars($str, ENT_QUOTES); echo "</pre>"; 
-?>
     
     </body>
 </html>
