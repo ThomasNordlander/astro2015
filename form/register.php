@@ -2,6 +2,9 @@
 <?php
 /* Configuration: */
 $baseurl = 'http://www.astro.uu.se/~tnord/.astro2015';
+$emailto = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
+$emailfrom = "Astro2015";
+$emailsubject = "Astro15: new registration";
 
 
 function submitted() { // did the user actually submit data?
@@ -192,7 +195,7 @@ $lunch = get("FridayLunch"); if (!in_array($lunch,   array("Attending", "Not Att
     
     <div id="form-div">
         <!-- <form name="regForm" onsubmit="return validateForm()"> -->
-        <form name="regForm" action="register.php" method="get">
+        <form name="regForm" action="register.php" method="post">
             <h1>Astronomdagarna 2015 Registration</h1>
 
             <div>
@@ -245,12 +248,10 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 				"<a href='".$url.".txt'>text form</a>, ".
 				"<a href='".$url.".dat'>with field names</a>, ".
 				"<a href='".$url.".html'>html version</a>.</p>\n";
-	$headers = "From: Astro2015 \n"; 
+	$headers = "From:  ".$emailfrom."\n"; 
 	$headers .= 'MIME-Version: 1.0' . "\n"; 
-	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n"; 
-	$to = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
-	$subject = "Astro15: new registration";
-	if (!mail($to, $subject, $text, $headers)) { 
+	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+	if (!mail($emailto, $emailsubject, $text, $headers)) { 
 		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
 		die("</div></body></html>");
 	}
@@ -283,7 +284,14 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 	
 <?php
 	exit;
+} elseif ($submitted) {
+?>
+	<h2>Please check that your data have been correctly parsed below. If everything is ok, click submit! Otherwise, click preview again.</h2>
+	
+<?php
 }
+
+
 
 ?>
      
