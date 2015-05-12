@@ -2,6 +2,7 @@
 <?php
 /* Configuration: */
 $baseurl = 'http://www.astro.uu.se/~tnord/.astro2015';
+$sendemail = true;
 $emailto = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
 $emailfrom = "Astro2015";
 $emailsubject = "Astro15: new registration";
@@ -230,6 +231,7 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 	}
 	// Also construct HTML representation:
 	$text = "<table><tr><th>Field</th><th>Input</th></tr>\n" . 
+			"<tr><td>Title</td><td>".$title."</td></tr>\n" . 
 			"<tr><td>Name</td><td>".$name." ".$surname."</td></tr>\n" . 
 			"<tr><td>Affiliation</td><td>".$affil."</td></tr>\n" . 
 			"<tr><td>Email</td><td>".$email."</td></tr>\n" . 
@@ -242,20 +244,21 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 		die("</div></body></html>");
 	}
 	// Email
-	$text = "<h1>New user registration</h1>\n".
-			$text."\n" .
-			"<p>User data are stored here, for reference: ".
-				"<a href='".$url.".txt'>text form</a>, ".
-				"<a href='".$url.".dat'>with field names</a>, ".
-				"<a href='".$url.".html'>html version</a>.</p>\n";
-	$headers = "From:  ".$emailfrom."\n"; 
-	$headers .= 'MIME-Version: 1.0' . "\n"; 
-	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-	if (!mail($emailto, $emailsubject, $text, $headers)) { 
-		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
-		die("</div></body></html>");
+	if ($sendemail) {
+		$text = "<h1>New user registration</h1>\n".
+				$text."\n" .
+				"<p>User data are stored here, for reference: ".
+					"<a href='".$url.".txt'>text form</a>, ".
+					"<a href='".$url.".dat'>with field names</a>, ".
+					"<a href='".$url.".html'>html version</a>.</p>\n";
+		$headers = "From:  ".$emailfrom."\n"; 
+		$headers .= 'MIME-Version: 1.0' . "\n"; 
+		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		if (!mail($emailto, $emailsubject, $text, $headers)) { 
+			echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
+			die("</div></body></html>");
+		}
 	}
-	
 	
 ?>
 	<h2> You are now registered! </h2>
