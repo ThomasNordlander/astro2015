@@ -1,11 +1,19 @@
+#!/usr/bin/php
+<?php header("Content-type: text/html; charset=utf-8"); ?>
+
 <!doctype html>
 <?php
 /* Configuration: */
-$baseurl = 'http://www.astro.uu.se/~tnord/.astro2015';
-$sendemail = true;
-$emailto = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
+// Storing data (outside www folder):
+$datapath = $_SERVER['HOME']+'/registration/';
+if ~file_exists($datapath) mkdir($datapath, 0755));
+// Verification emails:
+$sendemail = false;
+// $emailto = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
+$emailto = "Thomas <astro15@smutt.org>";
 $emailfrom = "Astro2015";
 $emailsubject = "Astro15: new registration";
+
 
 
 function submitted() { // did the user actually submit data?
@@ -149,6 +157,13 @@ function validateform(&$message) {
 }
 
 
+// Abort registering registration, kill further processing:
+function fail() {
+	echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
+	die("</div></body></html>");
+}
+
+
 
 // Extract input data:
 function get($field) {
@@ -191,7 +206,7 @@ $lunch = get("FridayLunch"); if (!in_array($lunch,   array("Attending", "Not Att
     
     
     <div id="hero-div">
-	    <h2 style="float: right;"><a href="">back to homepage <i class="fa fa-arrow-circle-left "></i></a></h2>
+	    <h2 style="float: right;"><a href="../">back to homepage <i class="fa fa-arrow-circle-left "></i></a></h2>
     </div>
     
     <div id="form-div">
@@ -213,21 +228,19 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 	
 	$filename = iconv("utf-8","ascii//TRANSLIT", $filename);
  	$filename = preg_replace("/[^a-zA-Z_\.]/", "", $filename);
-	$filename = "../.registration/".date("U").'_'.$filename;
+	$filename = $datapath.date("U").'_'.$filename;
 	$fname = basename($filename); // trim directory information
-	$url = $baseurl."/.registration/".$fname; // complete url, save for file extension
+// 	$url = $baseurl."/.registration/".$fname; // complete url, save for file extension
 	// construct text string to store:
 	$text = $title."\n".$name."\n".$surname."\n".$affil."\n".$email."\n".$diet."\n".$banquet."\n".$lunch."\n".$diet_details;
-	if (!file_put_contents($filename.'.txt', $text)) { 
-		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
-		die("</div></body></html>");
+	if (!file_put_contents($filename.'.txt', $text)) {
+		fail(); 
 	}
 	// Another one, including field names for greping:
 	$text = 'Title: '.$title."\nName: ".$name."\nSurname: ".$surname."\nAffiliation: ".$affil."\nEmail: " .
 		$email."\nDiet: ".$diet."\nBanquet: ".$banquet."\nLunch: ".$lunch."\nDiet details: ".$diet_details;
 	if (!file_put_contents($filename.'.dat', $text)) { 
-		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
-		die("</div></body></html>");
+		fail();
 	}
 	// Also construct HTML representation:
 	$text = "<table><tr><th>Field</th><th>Input</th></tr>\n" . 
@@ -240,23 +253,21 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 			"<tr><td>Friday lunch:</td><td>".$lunch."</td></tr>\n" .
 			"</table>";
 	if (!file_put_contents($filename.'.html', $text)) { 
-		echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
-		die("</div></body></html>");
+		fail();
 	}
 	// Email
 	if ($sendemail) {
 		$text = "<h1>New user registration</h1>\n".
-				$text."\n" .
-				"<p>User data are stored here, for reference: ".
-					"<a href='".$url.".txt'>text form</a>, ".
-					"<a href='".$url.".dat'>with field names</a>, ".
-					"<a href='".$url.".html'>html version</a>.</p>\n";
+ 				. $text."\n";
+// 				"<p>User data are stored here, for reference: ".
+// 					"<a href='".$url.".txt'>text form</a>, ".
+// 					"<a href='".$url.".dat'>with field names</a>, ".
+// 					"<a href='".$url.".html'>html version</a>.</p>\n";
 		$headers = "From:  ".$emailfrom."\n"; 
 		$headers .= 'MIME-Version: 1.0' . "\n"; 
 		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 		if (!mail($emailto, $emailsubject, $text, $headers)) { 
-			echo "<p class='reg-input'>For some reason, we couldn't process your data! Please email the LOC: <a href='$loc'>$loc</a>.</p>";
-			die("</div></body></html>");
+			fail();
 		}
 	}
 	
