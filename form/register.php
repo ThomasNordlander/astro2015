@@ -5,8 +5,9 @@
 <?php
 /* Configuration: */
 // Storing data (outside www folder):
-$datapath = $_SERVER['HOME']+'/registration/';
-if ~file_exists($datapath) mkdir($datapath, 0755));
+$datapath = $_SERVER['HOME'].'/registration/';
+echo $datapath;
+if (!file_exists($datapath)) mkdir($datapath, 0755);
 // Verification emails:
 $sendemail = false;
 // $emailto = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
@@ -258,7 +259,7 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 	// Email
 	if ($sendemail) {
 		$text = "<h1>New user registration</h1>\n".
- 				. $text."\n";
+ 				$text."\n";
 // 				"<p>User data are stored here, for reference: ".
 // 					"<a href='".$url.".txt'>text form</a>, ".
 // 					"<a href='".$url.".dat'>with field names</a>, ".
