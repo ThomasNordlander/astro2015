@@ -5,8 +5,7 @@
 <?php
 /* Configuration: */
 // Storing data (outside www folder):
-$datapath = $_SERVER['HOME'].'/registration/';
-echo $datapath;
+$datapath = '../../registration/'; // note that $_SERVER['HOME'] is not defined when running in CGI
 if (!file_exists($datapath)) mkdir($datapath, 0755);
 // Verification emails:
 $sendemail = false;
@@ -186,11 +185,11 @@ $title = get("Title"); if (!in_array($title, array("", "Prof", "Dr", "Ms", "Mrs"
 
 $diet = get("DietRestrictions"); if (!in_array($diet, array("Yes", "No"))) $diet = "No";
 filterField('DietRestrictions_Details',false,500,true, $diet_details);
-$banquet = get("AtBanquet"); if (!in_array($banquet, array("Attending", "Not Attending"))) $banquet = "Not Attending";
-$lunch = get("FridayLunch"); if (!in_array($lunch,   array("Attending", "Not Attending"))) $lunch = "Not Attending";
+$banquet = get("AtBanquet");   if (!in_array($banquet, array("Attending", "Not Attending")))   $banquet = "Not Attending";
+$lunch   = get("FridayLunch"); if (!in_array($lunch,   array("Attending", "Not Attending")))   $lunch   = "Not Attending";
+$tour    = get("Tour");        if (!in_array($tour,    array("Interested", "Not Interested"))) $tour    = "Not Interested";
 
 
-// echo "<pre>"; $arr = get_defined_vars(); print_r($arr); echo "</pre>";
 
 ?>
 <html>
@@ -233,13 +232,13 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 	$fname = basename($filename); // trim directory information
 // 	$url = $baseurl."/.registration/".$fname; // complete url, save for file extension
 	// construct text string to store:
-	$text = $title."\n".$name."\n".$surname."\n".$affil."\n".$email."\n".$diet."\n".$banquet."\n".$lunch."\n".$diet_details;
+	$text = $title."\n".$name."\n".$surname."\n".$affil."\n".$email."\n".$diet."\n".$banquet."\n".$lunch."\n".$tour."\n".$diet_details;
 	if (!file_put_contents($filename.'.txt', $text)) {
 		fail(); 
 	}
 	// Another one, including field names for greping:
 	$text = 'Title: '.$title."\nName: ".$name."\nSurname: ".$surname."\nAffiliation: ".$affil."\nEmail: " .
-		$email."\nDiet: ".$diet."\nBanquet: ".$banquet."\nLunch: ".$lunch."\nDiet details: ".$diet_details;
+		$email."\nDiet: ".$diet."\nBanquet: ".$banquet."\nLunch: ".$lunch."\nTour: ".$tour."\nDiet details: ".$diet_details;
 	if (!file_put_contents($filename.'.dat', $text)) { 
 		fail();
 	}
@@ -252,6 +251,7 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 			"<tr><td>Diet:</td><td>".$diet. ($diet == 'Yes' ? ': '.$diet_details : '')."</td></tr>\n" . 
 			"<tr><td>Banquet:</td><td>".$banquet."</td></tr>\n" . 
 			"<tr><td>Friday lunch:</td><td>".$lunch."</td></tr>\n" .
+			"<tr><td>Guided tour:</td><td>".$tour."</td></tr>\n" .
 			"</table>";
 	if (!file_put_contents($filename.'.html', $text)) { 
 		fail();
@@ -291,6 +291,7 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
 	<p class="reg-input"><?php echo ($diet == 'Yes' ? "You have the following dietary restrictions: ". $diet_details : "You do not have any dietary restrictions"); ?></p>
 	<p class="reg-input"><?php echo ($banquet == 'Attending' ? 'You will be attending the conference banquet.' : 'You will not be attending the conference banquet.'); ?></p>
 	<p class="reg-input"><?php echo ($lunch == 'Attending' ? 'You requested coupons for the Friday lunch.' : 'You have not requested coupons for the Friday lunch. Note that these can still be purchased in the canteen!'); ?></p>
+	<p class="reg-input">We have registered that you are<?php echo ($tour == 'Interested' ? '' : ' not'); ?> interested in attended a guided tour Saturday afternoon, details to be determined.</p>
 	
 	</div>
 </body>
@@ -363,7 +364,7 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
             	<br/><br/>
             	
                 <label for="DietRestrictions_Details">If yes, please describe them:</label><br/><br/>
-                <textarea name="DietRestrictions_Details" id="DietRestrictions_Details" rows="15" style="width: 90%"><?php echo $diet_details; ?></textarea>
+                 <textarea name="DietRestrictions_Details" id="DietRestrictions_Details" rows="15" style="width: 90%"><?php echo $diet_details; ?></textarea>
                 <br/><br/><br/>
                 
             	<label>Conference banquet (150 SEK)</label><br/><br/>
@@ -371,11 +372,15 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
             	<input type="radio" id="AtBanquet_NotAttending" name="AtBanquet" value="Not Attending" <?php radio('AtBanquet', array('Not Attending', 'Attending'), 'Not Attending');?>/> <label>&nbsp;Not Attending</label>
             	<br/><br/><br/>
                 
-                <label>Friday lunch</label><br/><br/>
+                <label>Friday lunch (ca 80 SEK)</label><br/><br/>
             	<input type="radio" id="FridayLunch_Attending" name="FridayLunch" value="Attending" <?php radio('FridayLunch', array('Not Attending', 'Attending'), 'Attending');?>/> <label>&nbsp;Attending</label>
             	<input type="radio" id="FridayLunch_NotAttending" name="FridayLunch" value="Not Attending" <?php radio('FridayLunch', array('Not Attending', 'Attending'), 'Not Attending');?>/> <label>&nbsp;Not Attending</label>
             	<br/><br/><br/>
                 
+		<label>Guided tour on Saturday (free; details to be determined)</label><br/><br/>
+		<input type="radio" id="Tour_Interested" name="Tour" value="Interested" <?php radio("Tour", array("Not Interested", "Interested"), "Interested");?>/> <label>&nbsp;Interested (not binding)</label>
+		<input type="radio" id="Tour_NotInterested" name="Tour" value="Not Interested" <?php radio("Tour", array("Not Interested", "Interested"), "Not Interested");?>/> <label>&nbsp;Not Interested</label>
+		<br/><br/><br/>
             </div>
 	        
 	        <br/>
