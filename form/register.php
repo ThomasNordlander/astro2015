@@ -1,6 +1,3 @@
-#!/usr/bin/php
-<?php header("Content-type: text/html; charset=utf-8"); ?>
-
 <!doctype html>
 <?php
 /* Configuration: */
@@ -8,11 +5,11 @@
 $datapath = '../../registration/'; // note that $_SERVER['HOME'] is not defined when running in CGI
 if (!file_exists($datapath)) mkdir($datapath, 0755);
 // Verification emails:
-$sendemail = false;
+$sendemail = true;
 // $emailto = "Thomas <astro15@smutt.org>, Alexis <alexis.lavail@physics.uu.se>";
-$emailto = "Thomas <astro15@smutt.org>";
+$emailto = "Astro2015 <astro2015@physics.uu.se>";
 $emailfrom = "Astro2015";
-$emailsubject = "Astro15: new registration";
+$emailsubject = "New registration";
 
 
 
