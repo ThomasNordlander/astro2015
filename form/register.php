@@ -123,8 +123,8 @@ function validateform(&$message) {
 	 */
 	for ($i = 0; $i < count($fields); $i++) {
 		switch ($fields[$i]) {
-			case 'FirstName': case 'Surname': $ok = filterField($fields[$i],false, 50,false); break;
-			case 'Affil':                     $ok = filterField($fields[$i],false,100,false); break;
+			case 'FirstName': case 'Surname': $ok = filterField($fields[$i],false, 50,false, $fieldval); break;
+			case 'Affil':                     $ok = filterField($fields[$i],false,100,false, $fieldval); break;
 		}
 		if (!$ok) {
 			$err++;
