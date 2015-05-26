@@ -364,7 +364,7 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
                  <textarea name="DietRestrictions_Details" id="DietRestrictions_Details" rows="15" style="width: 90%"><?php echo $diet_details; ?></textarea>
                 <br/><br/><br/>
                 
-            	<label>Conference banquet (150 SEK)</label><br/><br/>
+            	<label>Conference banquet at Stockholm's nation on Friday Evening (150 SEK)</label><br/><br/>
             	<input type="radio" id="AtBanquet_Attending" name="AtBanquet" value="Attending" <?php radio('AtBanquet', array('Not Attending', 'Attending'), 'Attending');?>/> <label>&nbsp;Attending</label>
             	<input type="radio" id="AtBanquet_NotAttending" name="AtBanquet" value="Not Attending" <?php radio('AtBanquet', array('Not Attending', 'Attending'), 'Not Attending');?>/> <label>&nbsp;Not Attending</label>
             	<br/><br/><br/>
@@ -374,7 +374,7 @@ if (finished() && $valid) { // user clicked "submit", and all data are valid!
             	<input type="radio" id="FridayLunch_NotAttending" name="FridayLunch" value="Not Attending" <?php radio('FridayLunch', array('Not Attending', 'Attending'), 'Not Attending');?>/> <label>&nbsp;Not Attending</label>
             	<br/><br/><br/>
                 
-		<label>Guided tour on Saturday (free; details to be determined)</label><br/><br/>
+		<label>Guided walking tour of Uppsala on Saturday afternoon (free; details to be determined)</label><br/><br/>
 		<input type="radio" id="Tour_Interested" name="Tour" value="Interested" <?php radio("Tour", array("Not Interested", "Interested"), "Interested");?>/> <label>&nbsp;Interested (not binding)</label>
 		<input type="radio" id="Tour_NotInterested" name="Tour" value="Not Interested" <?php radio("Tour", array("Not Interested", "Interested"), "Not Interested");?>/> <label>&nbsp;Not Interested</label>
 		<br/><br/><br/>
